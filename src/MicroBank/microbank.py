@@ -2,6 +2,7 @@
 # Reads transactions from input.py in the same folder
 
 import os
+import csv
 
 def process_transactions(file_path):
     """

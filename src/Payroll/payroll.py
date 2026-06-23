@@ -1,28 +1,30 @@
+import csv
+from pathlib import Path
+
+
+def read_employees(file_path):
+    employees = []
+
+    with open(file_path, newline="", encoding="utf-8") as file:
+        reader = csv.reader(file)
+        next(reader, None)
+
+        for row in reader:
+            if not row:
+                continue
+
+            name = row[0].strip()
+            hours = float(row[1].strip())
+            rate = float(row[2].strip())
+            employees.append((name, hours, rate))
+
+    return employees
+
+
 def main():
     tax_rate = 0.20
-
-    employees = [
-        ("John Doe", 40, 15.50),
-        ("Jane Smith", 35, 18.25),
-        ("Bob Johnson", 45, 12.75),
-        ("Alice Williams", 38, 16.00),
-        ("Charlie Brown", 42, 14.50),
-        ("Diana Prince", 37, 19.75),
-        ("Edward Norton", 40, 13.25),
-        ("Fiona Green", 33, 17.50),
-        ("George Harris", 44, 15.75),
-        ("Helen Clark", 39, 16.50),
-        ("Ian Mitchell", 41, 14.00),
-        ("Julia Roberts", 36, 18.50),
-        ("Kevin Lee", 43, 13.65),
-        ("Linda Davis", 38, 17.25),
-        ("Michael Scott", 40, 15.25),
-        ("Nancy White", 35, 19.00),
-        ("Oliver King", 42, 14.75),
-        ("Patricia Moore", 37, 16.75),
-        ("Quinn Taylor", 39, 15.00),
-        ("Rachel Green", 34, 18.75)
-    ]
+    input_file = Path(__file__).with_name("input.data")
+    employees = read_employees(input_file)
 
     print("Name, Gross-pay, Taxes, Net-pay")
 
